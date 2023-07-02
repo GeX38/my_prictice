@@ -85,7 +85,7 @@ def plot_map(plot_times, data, type_d,
              sort=False,
              use_alpha=False,
              clims=C_LIMITS,
-             savefig=''):
+             savefig='map.png', dpi=300):
     """
     Plotting data
     input - <time> string type time from SIMuRG map file
