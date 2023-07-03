@@ -29,7 +29,7 @@ conda install -c conda-forge --file requirements.txt
 git clone https://github.com/GeX38/my_prictice
 Перейдите в каталог проекта:
 
-cd flask-file-upload-plotting
+cd my_prictice
 Установите зависимости:
 
 conda install -c conda-forge --file requirements.txt
