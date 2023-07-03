@@ -85,7 +85,7 @@ def plot_map(plot_times, data, type_d,
              sort=False,
              use_alpha=False,
              clims=C_LIMITS,
-             savefig='map.png', dpi=300):
+             savefig=''):
     """
     Plotting data
     input - <time> string type time from SIMuRG map file
@@ -216,31 +216,35 @@ def plot_maps(prod_files, prods, epc, clims=None, times=None, scale=1):
         C_LIMITS = clims
     else:
         C_LIMITS ={
-            'ROTI': [0,0.5*scale,'TECu/min'],
-            '2-10 minute TEC variations': [-0.4*scale,0.4*scale,'TECu'],
-            '10-20 minute TEC variations': [-0.6*scale,0.6*scale,'TECu'],
-            '20-60 minute TEC variations': [-1*scale,1*scale,'TECu'],
-            'tec': [0,50*scale,'TECu/min'],
-            'tec_adjusted': [0,50*scale,'TECu'],
+    'ROTI': [0,0.1,'TECu/min'],
+    '2-10 minute TEC variations': [-0.1,0.1,'TECu'],
+    '10-20 minute TEC variations': [-0.2,0.2,'TECu'],
+    '20-60 minute TEC variations': [-0.6,0.6,'TECu'],
+    'tec': [0,50,'TECu/min'],
+    'tec_adjusted': [0,50,'TECu'],
         }
     if times:
         pass
     else:
-        times = [datetime(2023, 2, 6, 10, 25),
-                 datetime(2023, 2, 6, 10, 40),
-                 datetime(2023, 2, 6, 10, 45, 0)]
+        times = [datetime(2023, 2, 6, 1, 17),
+                 datetime(2023, 2, 6, 1, 32),
+                 datetime(2023, 2, 6, 1, 37)]
     times = [t.replace(tzinfo=t.tzinfo or _UTC) for t in times]
-    for files in zip(*prod_files):
-        data = retrieve_data_multiple_source(files, prods[files[0]], times)
-        data = {prods[files[0]]: data}
-        plot_map(times, data, prods[files[0]],
-    #             use_alpha=True,
+    for f in zip(*prod_files):
+        data = retrieve_data(f, prods[f], times)
+        _data = {prods[f]: data}
+        plot_map(times, _data, prods[f],
+                lat_limits=(25, 50),
+                lon_limits=(25, 50),
+                 markers=[EPICENTERS['01:17']])
+
+    for f in zip(*prod_files):
+        data = retrieve_data(f, prods[f], times)
+        _data = {prods[f]: data}
+        plot_map(times, _data, prods[f],
                  lat_limits=(25, 50),
                  lon_limits=(25, 50),
-                 sort=True,
-                 markers=[EPICENTERS['10:24']],
-                 clims=C_LIMITS)
-
+                 markers=[EPICENTERS['01:17']])
 #Select sites and make proper structure#
 def get_sites_coords(local_file, exclude_sites=[],
                      min_lat=-90, max_lat=90,

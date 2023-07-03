@@ -1,10 +1,9 @@
 import os
 import datetime
+import pytest
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
-import numpy
-import cartopy.crs as ccrs
 
 from export_mod import retrieve_data, plot_map, _UTC
 
@@ -18,6 +17,7 @@ times = [
 times = [t.replace(tzinfo=t.tzinfo or _UTC) for t in times]
 data = retrieve_data(file_path, "ROTI", times)
 _data={"ROTI":data}
+
 plot_map(
             plot_times=times,
             data=_data,

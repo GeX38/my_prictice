@@ -11,6 +11,9 @@
         <input type="file" name="file" required><br><br>
         <input type="submit" value="Upload"><br><br>
     </form>
+    <form action="/plot" method="POST">  <!-- Форма для построения графика -->
+        <button type="submit">Построить график</button>
+    </form>
 
     {% if message %}
         <p>{{ message }}</p>
